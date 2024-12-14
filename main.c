@@ -9,7 +9,6 @@ int can = 100, tokluk = 100, uyku = 100, hijyen = 100, altin = 10;
 int guc = 3, ceviklik = 3, dayaniklilik = 3, karizma = 3, toplayicilik = 3;
 int seviye = 1, tecrube = 0;
 
-// Function prototypes
 void menu();
 void kamp_alani();
 void sifahane();
@@ -212,6 +211,7 @@ void kamp_alani() {
             tokluk -= 10;
             break;
         case 4:
+            printf("Koy meydanina donuluyor \n");
             break;
         default:
             printf("Gecersiz secim!\n");
@@ -231,12 +231,18 @@ void sifahane() {
         case 1:
             can += 20;
             altin -= 5;
+            tokluk -= 5;
+            printf("Yaralarin sarildi. Can 20 artti, Tokluk 5 azaldi, Altin 5 azaldi")
             break;
         case 2:
+            can += 5;
             hijyen += 15;
             altin -= 3;
+            tokluk -= 5;
+            printf("Merhem yapildi. Can 5 artti, Tokluk 5 azaldi, Hijyen 15 artti, Altin 3 azaldi")
             break;
         case 3:
+            printf("Koy meydanina donuluyor \n");
             break;
         default:
             printf("Gecersiz secim!\n");
@@ -273,6 +279,7 @@ void han() {
             }
             break;
         case 4:
+            printf("Koy meydanina donuluyor \n");
             break;
         default:
             printf("Gecersiz secim!\n");
@@ -303,6 +310,7 @@ void macera() {
             tecrube += 90;
             break;
         case 4:
+            printf("Koy meydanina donuluyor \n");
             break;
         default:
             printf("Gecersiz secim!\n");
