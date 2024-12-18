@@ -6,7 +6,7 @@
 // Global character attributes
 char ozan_adi[50], calgi[50];
 int can = 100, tokluk = 100, uyku = 100, hijyen = 100, altin = 10;
-int guc = 3, ceviklik = 3, dayaniklilik = 3, karizma = 3, toplayicilik = 3;
+int guc = 3, ceviklik = 3, dayaniklilik = 3, karizma = 3, toplayicilik = 25;
 int seviye = 1, tecrube = 0;
 
 void menu();
@@ -15,7 +15,6 @@ void sifahane();
 void han();
 void macera();
 void toplayicilik_yap();
-void egitim_al();
 void seviye_atla();
 void durumu_goster();
 void kontrol_nitelikler();
@@ -62,7 +61,7 @@ void savas_sistemi(int zorluk) {
     int kazanilan_altin = 0;
     int tur = 1;
 
-    // Düşman özelliklerini zorluga gore ayarla
+    // Dusman ozelliklerini zorluga gore ayarla
     switch(zorluk) {
         case 1: // Kolay
             dusman_guc = rand() % 3 + 1;
@@ -124,7 +123,7 @@ void savas_sistemi(int zorluk) {
         int alinan_dusman_hasari = (ozan_hasar * ozan_vurusunun_etkinligi) / 100;
         dusman_dayaniklilik -= alinan_dusman_hasari;
 
-        // Can 0'in altina düşmesin
+        // Can 0'in altina dusmesin
         if (dusman_dayaniklilik < 0) dusman_dayaniklilik = 0;
 
         printf("%s'nin saldirisi! Dusmana %d hasar verildi (Vurusun etkinligi: %d%%)\n",
@@ -140,7 +139,7 @@ void savas_sistemi(int zorluk) {
             can -= alinan_ozan_hasari;
             hijyen -= 5; // Savasdan sonra hijyen dusuk
 
-            // Can 0'in altina düşmesin
+            // Can 0'in altina dusmesin
             if (can < 0) can = 0;
 
             printf("Dusmanin saldirisi! %s'a %d hasar verildi (Vurusun etkinligi: %d%%)\n",
@@ -202,6 +201,18 @@ int main() {
     scanf("%49s", ozan_adi);
     printf("Ozanin kullandigi calgiyi giriniz: ");
     scanf("%49s", calgi);
+    printf("\n=== EZGI KORUYUCULARI'NIN HIKAYESI ===\n");
+    printf("Efsaneye gore, cok eski zamanlarda 'Ulu Ozan' olarak bilinen bir bilge yasarmis.\n");
+    printf("Bu ozan, muzigin sadece kulaga hos gelen melodilerden ibaret olmadigini,\n");
+    printf("ayni zamanda doganin ve evrenin gizemli guclerini kontrol edebilen kadim bir sanat oldugunu kesfetmis.\n");
+    printf("\nBir gece, ustadinizin cadiri gizemli karanlik yaratiklar tarafindan basildi ve ustadiniz kacirildi.\n");
+    printf("Şimdi onu kurtarmak icin yola cikmalisiniz...\n");
+    printf("\nEzgi Koruyuculari'nin kadim dusmani olan 'Suskunluk Tarikati',\n");
+    printf("dunyadan tum muzigi ve sesi silmeye ant icmis karanlik bir orguttur.\n");
+    printf("ustadinizi kurtarmak ve tarikati durdurmak sizin goreviniz!\n");
+    printf("\n ENTER ile devam edin...\n");
+    getchar();
+    getchar();
 
     while (1) {
         menu();
@@ -219,10 +230,9 @@ void menu() {
     printf("3. Han\n");
     printf("4. Maceraya atil\n");
     printf("5. Toplayicilik yap \n");
-    printf("6. Egitim al \n");
-    printf("7. Seviye atla\n");
-    printf("8. Durumu goster\n");
-    printf("9. Oyundan cik\n");
+    printf("6. Seviye atla\n");
+    printf("7. Durumu goster\n");
+    printf("8. Oyundan cik\n");
     printf("Seciminizi yapiniz: ");
     scanf("%d", &secim);
 
@@ -232,10 +242,9 @@ void menu() {
         case 3: han(); break;
         case 4: macera(); break;
         case 5: toplayicilik_yap(); break;
-        case 6: egitim_al(); break;
-        case 7: seviye_atla(); break;
-        case 8: durumu_goster(); break;
-        case 9:
+        case 6: seviye_atla(); break;
+        case 7: durumu_goster(); break;
+        case 8:
             printf("Oyundan cikmak istediginizden emin misiniz? (1: Evet, 0: Hayir): ");
             int cikis;
             scanf("%d", &cikis);
@@ -258,23 +267,21 @@ void kamp_alani() {
     switch (secim) {
         case 1:
             tokluk -= 5;
+            hijyen += 5;
             karizma += 1;
-            uyku -= 5;
             printf("Kamp atesinde calgi caldin!\n");
-            printf("Tokluk 5 azaldi, Uyku 5 azaldi, Karizma 1 yukseldi\n");
+            printf("Tokluk 5 azaldi, Hijyen 5 artti, Karizma 1 yukseldi\n");
             break;
         case 2:
             hijyen += 10;
-            uyku -= 5;
-            tokluk -= 5;
             printf("Nehirde yikandin!\n");
-            printf("Hijyen 10 artti, Tokluk 5 azaldi,\n");
+            printf("Hijyen 10 artti\n");
             break;
         case 3:
-            uyku += 30;
+            uyku += 20;
             tokluk -= 10;
             printf("Cadirda uyudun!\n");
-            printf("Uyku 30 artti, Tokluk 10 azaldi\n");
+            printf("Uyku 20 artti, Tokluk 10 azaldi\n");
             break;
         case 4:
             printf("Koy meydanina donuluyor \n");
@@ -331,17 +338,15 @@ void han() {
         case 1:
             tokluk += 20;
             altin -= 5;
-            uyku -= 5;
             printf("Yemek yenildi!\n");
-            printf("Tokluk 20 artti, Uyku 5 azaldi, Altin 5 azaldi\n");
+            printf("Tokluk 20 artti, Altin 5 azaldi\n");
             break;
         case 2:
             tokluk += 10;
             hijyen -= 5;
             altin -= 3;
-            uyku -= 5;
             printf("Icecek alindi!\n");
-            printf("Tokluk 10 artti, Hijyen 5 azaldi, Uyku 5 azaldi, Altin 3 azaldi\n");
+            printf("Tokluk 10 artti, Hijyen 5 azaldi, Altin 3 azaldi\n");
             break;
         case 3:
             if (hijyen > 20) {
@@ -349,11 +354,8 @@ void han() {
                 altin += kazanilan_altin;
                 tecrube += 20;
                 hijyen -= 10;
-                tokluk -= 5;
-                uyku -= 10;
                 printf("Sarkini soyledin!\n");
-                printf("%d Altin ve  20 tecrube kazandin\n", kazanilan_altin);
-                printf("Hijyen 10 azaldi, Tokluk 5 azaldi, Uyku 10 azaldi\n");
+                printf("Altin ve tecrube kazandin\n");
             } else {
                 printf("Hijyeniz cok dusuk, performans yapamazsiniz.\n");
             }
@@ -372,7 +374,8 @@ void macera() {
     printf("1. Kolay kesif\n");
     printf("2. Orta kesif\n");
     printf("3. Zor kesif\n");
-    printf("4. Koy meydanina don\n");
+    printf("4. Son macera\n");
+    printf("5. Koy meydanina don\n");
     printf("Seciminizi yapiniz: ");
     scanf("%d", &secim);
 
@@ -380,31 +383,42 @@ void macera() {
         case 1:
             savas_sistemi(1);
             tecrube += 30;
-            uyku -= 10;
-            tokluk -= 10;
             break;
         case 2:
             savas_sistemi(2);
             tecrube += 60;
-            uyku -= 15;
-            tokluk -= 15;
             break;
         case 3:
             savas_sistemi(3);
             tecrube += 90;
-            uyku -= 20;
-            tokluk -= 20;
             break;
         case 4:
+            if (guc >= 10 && ceviklik >= 10 && dayaniklilik >= 10 && karizma >= 10) {
+                printf("\n=== SUSKUNLUK TARİKATI'NIN SAKLANDIĞI KARTAL YUVASI'NA VARDINIZ ===\n");
+                printf("Ustadinizi kurtarmak icin son savasa hazir olun!\n");
+                savas_sistemi(4); // En zor savas
+                if (can > 0) {
+                    printf("\n=== MUTLU SON ===\n");
+                    printf("Ustadinizi kurtardiniz! Suskunluk Tarikati'ni yendiniz!\n");
+                    printf("Artik gercek bir Ezgi Koruyucususunuz...\n");
+                    printf("Oyunu tamamladiginiz icin tesekkurler!\n");
+                    exit(0);
+                }
+            } else {
+                printf("Bu goreve hazir degilsiniz!\n");
+                printf("Gereksinimler: Guc >= 10, Çeviklik >= 10, Dayaniklilik >= 10, Karizma >= 10\n");
+            }
+            break;
+        case 5:
             printf("Koy meydanina donuluyor \n");
             break;
         default:
             printf("Gecersiz secim!\n");
     }
 }
-void toplayicilik_yap() {
+    void toplayicilik_yap() {
     srand(time(NULL));
-    int bulma_sansi = (toplayicilik * 4) / 100;
+    int bulma_sansi = (toplayicilik * 4);
     int rastgele_sayi = rand() % 100 + 1;
     int secim;
 
@@ -420,17 +434,12 @@ void toplayicilik_yap() {
             printf("\nDogada sifali bitki ariyorsun...\n");
             if (rastgele_sayi <= bulma_sansi) {
                 printf("Tebrikler! Sifali bir bitki buldun. Can artti!\n");
-                printf("Can 10 artti, Tokluk 5 azaldi, Hijyen 5 azaldi, Uyku 5 azaldi\n");
                 can += 10;
                 tokluk -= 5;
                 hijyen -= 5;
                 uyku -= 5;
             } else {
                 printf("Maalesef, bir sey bulamadin.\n");
-                printf("Tokluk 5 azaldi, Hijyen 5 azaldi, Uyku 5 azaldi\n");
-                tokluk -= 5;
-                hijyen -= 5;
-                uyku -= 5;
             }
             break;
 
@@ -443,10 +452,6 @@ void toplayicilik_yap() {
                 uyku -= 5;
             } else {
                 printf("Maalesef, bir sey bulamadin.\n");
-                printf("Tokluk 5 azaldi, Hijyen 5 azaldi, Uyku 5 azaldi\n");
-                tokluk -= 5;
-                hijyen -= 5;
-                uyku -= 5;
             }
             break;
 
@@ -457,116 +462,6 @@ void toplayicilik_yap() {
         default:
             printf("Gecersiz secim! Toplayicilik iptal edildi.\n");
             break;
-    }
-}
-
-void egitim_al() {
-    int secim, maliyet;
-    
-    printf("\n=== EGITIM MERKEZI ===\n");
-    printf("Mevcut Altininiz: %d\n", altin);
-    printf("Egitim Secenekleri:\n");
-    printf("1. Savas Egitimi (Maliyet: 35 Altin, Kazanim: +2 Guc)\n");
-    printf("2. Hareket Egitimi (Maliyet: 30 Altin, Kazanim: +2 Ceviklik)\n");
-    printf("3. Dayaniklilik Egitimi (Maliyet: 40 Altin, Kazanim: +2 Dayaniklilik)\n");
-    printf("4. Karizma Egitimi (Maliyet: 35 Altin, Kazanim: +2 Karizma)\n");
-    printf("5. Dogada Yasam Egitimi (Maliyet: 40 Altin, Kazanim: +2 Toplayicilik)\n");
-    printf("6. Ana Menuye Don\n");
-    printf("Seciminizi yapin: ");
-    
-    scanf("%d", &secim);
-    
-    switch(secim) {
-        case 1:
-            maliyet = 35;
-            if (altin >= maliyet) {
-                altin -= maliyet;
-                guc += 2;
-                tokluk -= 15;
-                uyku -= 10;
-                hijyen -= 10;
-                
-                printf("\nSavaş Egitimi Basariyla Tamamlandi!\n");
-                printf("2 Guc puani kazandiniz.\n");
-                printf("Fiziksel yorgunluk nedeniyle tokluk, uyku ve hijyen degerleriniz azaldi.\n");
-            } else {
-                printf("\nYeterli altininiz yok!\n");
-            }
-            break;
-        
-        case 2:
-            maliyet = 30;
-            if (altin >= maliyet) {
-                altin -= maliyet;
-                ceviklik += 2;
-                tokluk -= 15;
-                uyku -= 10;
-                hijyen -= 10;
-                
-                printf("\nHareket Egitimi Basariyla Tamamlandi!\n");
-                printf("2 Ceviklik puani kazandiniz.\n");
-                printf("Fiziksel yorgunluk nedeniyle tokluk, uyku ve hijyen degerleriniz azaldi.\n");
-            } else {
-                printf("\nYeterli altininiz yok!\n");
-            }
-            break;
-        
-        case 3:
-            maliyet = 40;
-            if (altin >= maliyet) {
-                altin -= maliyet;
-                dayaniklilik += 2;
-                tokluk -= 15;
-                uyku -= 10;
-                hijyen -= 10;
-                
-                printf("\nDayaniklilik Egitimi Basariyla Tamamlandi!\n");
-                printf("2 Dayaniklilik puani kazandiniz.\n");
-                printf("Fiziksel yorgunluk nedeniyle tokluk, uyku ve hijyen degerleriniz azaldi.\n");
-            } else {
-                printf("\nYeterli altininiz yok!\n");
-            }
-            break;
-        
-        case 4:
-            maliyet = 35;
-            if (altin >= maliyet) {
-                altin -= maliyet;
-                karizma += 2;
-                tokluk -= 15;
-                uyku -= 10;
-                hijyen -= 10;
-                
-                printf("\nKarizma Egitimi Basariyla Tamamlandi!\n");
-                printf("2 Karizma puani kazandiniz.\n");
-                printf("Sosyal yorgunluk nedeniyle tokluk, uyku ve hijyen degerleriniz azaldi.\n");
-            } else {
-                printf("\nYeterli altininiz yok!\n");
-            }
-            break;
-        
-        case 5:
-            maliyet = 40;
-            if (altin >= maliyet) {
-                altin -= maliyet;
-                toplayicilik += 2;
-                tokluk -= 15;
-                uyku -= 10;
-                hijyen -= 10;
-                
-                printf("\nDogada Yasam Egitimi Basariyla Tamamlandi!\n");
-                printf("2 Toplayicilik puani kazandiniz.\n");
-                printf("Fiziksel yorgunluk nedeniyle tokluk, uyku ve hijyen degerleriniz azaldi.\n");
-            } else {
-                printf("\nYeterli altininiz yok!\n");
-            }
-            break;
-        
-        case 6:
-            return;
-        
-        default:
-            printf("Gecersiz secim!\n");
     }
 }
 
